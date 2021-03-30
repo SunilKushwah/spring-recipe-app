@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import sun.springframework.springrecipeapp.domain.*;
 import sun.springframework.springrecipeapp.repositories.CategoryRepository;
 import sun.springframework.springrecipeapp.repositories.RecipeRepository;
@@ -29,6 +30,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
         log.debug("Loading bootstrap data");
         recipeRepository.saveAll(getRecipes());
