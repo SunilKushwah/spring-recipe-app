@@ -7,6 +7,7 @@ import sun.springframework.springrecipeapp.repositories.RecipeRepository;
 import sun.springframework.springrecipeapp.service.RecipeService;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -27,4 +28,14 @@ public class RecipeServiceImpl implements RecipeService {
         all.iterator().forEachRemaining(recipeSet::add);
         return recipeSet;
     }
+
+    @Override
+    public Recipe findById(Long id) {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+        if(!recipeOptional.isPresent())
+            throw new RuntimeException("recipe not found");
+
+        return recipeOptional.get();
+    }
+
 }
