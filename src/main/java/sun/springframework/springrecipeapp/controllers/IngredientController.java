@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import sun.springframework.springrecipeapp.commands.IngredientCommand;
 import sun.springframework.springrecipeapp.commands.RecipeCommand;
 import sun.springframework.springrecipeapp.commands.UnitOfMeasureCommand;
-import sun.springframework.springrecipeapp.domain.Recipe;
 import sun.springframework.springrecipeapp.service.IngredientService;
 import sun.springframework.springrecipeapp.service.RecipeService;
 import sun.springframework.springrecipeapp.service.UnitOfMeasureService;
@@ -72,5 +71,12 @@ public class IngredientController {
         ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
         model.addAttribute("uomList",unitOfMeasureService.listAllUoms());
         return "recipe/ingredient/ingredientform";
+    }
+
+    @GetMapping("recipe/{recipeId}/ingredient/{id}/delete")
+    public String deleteIngredient(@PathVariable String recipeId, @PathVariable String id){
+        log.debug("deleting ingredient id:"+id);
+        ingredientService.deleteById(Long.valueOf(recipeId),Long.valueOf(id));
+        return "redirect:/recipe/"+recipeId+"/ingredients";
     }
 }
