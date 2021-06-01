@@ -7,6 +7,7 @@ import sun.springframework.springrecipeapp.commands.RecipeCommand;
 import sun.springframework.springrecipeapp.converters.*;
 import sun.springframework.springrecipeapp.domain.Ingredient;
 import sun.springframework.springrecipeapp.domain.Recipe;
+import sun.springframework.springrecipeapp.exceptions.NotFoundException;
 import sun.springframework.springrecipeapp.repositories.RecipeRepository;
 import sun.springframework.springrecipeapp.service.RecipeService;
 
@@ -41,9 +42,10 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe findById(Long id) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
-        if(!recipeOptional.isPresent())
-            throw new RuntimeException("recipe not found");
-
+        if(!recipeOptional.isPresent()){
+            //throw new RuntimeException("recipe not found");
+            throw new NotFoundException("recipe not found");
+        }
         return recipeOptional.get();
     }
 

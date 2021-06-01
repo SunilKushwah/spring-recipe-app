@@ -89,7 +89,7 @@ class ImageControllerTest {
 
         when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
 
-        MockHttpServletResponse response = mockMvc.perform(get("recipe/1/recipeimage")).andExpect(status().isOk()).andReturn().getResponse();
+        MockHttpServletResponse response = mockMvc.perform(get("/recipe/1/recipeimage")).andExpect(status().isOk()).andReturn().getResponse();
 
         byte[] contentAsByteArray = response.getContentAsByteArray();
         assertEquals(file.getBytes().length, contentAsByteArray.length);
